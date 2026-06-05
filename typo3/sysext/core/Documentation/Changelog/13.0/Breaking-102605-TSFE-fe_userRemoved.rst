@@ -16,7 +16,7 @@ Frontend-related property :php:`TypoScriptFrontendController->fe_user` has been 
 When looking at the TYPO3 frontend rendering chain, class :php:`TypoScriptFrontendController`
 is by far the biggest technical debt: It mixes a lot of concerns and carries tons of state
 and functionality that should be modeled differently, which leads to easier to understand
-and more flexible code. The class is shrinking since various major versions already and will
+and more flexible code. This class is already shrinking since various major versions and will
 ultimately dissolve entirely at some point. Changes in this area are becoming more aggressive
 with TYPO3 v13. Any code using the class will need adaptions at some point, single patches
 will continue to communicate alternatives.
@@ -51,7 +51,7 @@ There are two possible migrations.
 
 First, a limited information list of frontend user details can be retrieved using the :php:`Context`
 aspect :php:`frontend.user` in frontend calls. See class :php:`\TYPO3\CMS\Core\Context\UserAspect` for a
-full list. The current context can retrieved using dependency injection. Example:
+full list. The current context can be retrieved using dependency injection. Example:
 
 .. code-block:: php
 
@@ -63,13 +63,13 @@ full list. The current context can retrieved using dependency injection. Example
         ) {}
 
         public function myAction() {
-            $frontendUserUsername = $this->context->getPropertyFromAspect('frontend.user', 'username', ''));
+            $frontendUserUsername = $this->context->getPropertyFromAspect('frontend.user', 'username', '');
         }
     }
 
 Additionally, the full :php:`\TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication` object is
-available as request attribute :php:`frontend.user` in the frontend. Note some details of that object
-are marked :php:`@internal`, using the context aspect is thus the preferred way. Example of an extension
+available as request attribute :php:`frontend.user` in the frontend. Please note that some details of that object
+are marked :php:`@internal`. Using the context aspect is thus the preferred way. Example of an extension
 using Extbase's :php:`ActionController`:
 
 .. code-block:: php
