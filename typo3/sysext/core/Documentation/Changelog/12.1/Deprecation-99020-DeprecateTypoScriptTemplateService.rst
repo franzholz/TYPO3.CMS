@@ -21,7 +21,7 @@ Impact
 
 The class :php:`TemplateService` is part of the old TypoScript parser and has been
 substituted with a :ref:`new parser approach <breaking-97816-1664800747>`.
-Actively calling class methods will trigger a deprecation log level warning.
+Actively calling its class methods will trigger a deprecation log level warning.
 
 
 Affected installations
@@ -37,13 +37,13 @@ Migration
 
 The class :php:`TemplateService` is typically called in TYPO3 frontend scope. Extensions
 should avoid using :php:`TypoScriptFrontendController->tmpl` and :php:`$GLOBALS['TSFE']->tmpl`
-methods and properties. They can retrieve TypoScript from the PSR-7 request instead
+methods and properties. They can retrieve TypoScript from the PSR-7 request instead by
 using the attribute :ref:`frontend.typoscript <feature-98914-1666689687>`.
 As example, the full frontend TypoScript can be retrieved like this:
 
 ..  code-block:: php
 
-    $fullTypoScript = $request()->getAttribute('frontend.typoscript')->getSetupArray();
+    $fullTypoScript = $request->getAttribute('frontend.typoscript')->getSetupArray();
 
 
 .. index:: PHP-API, FullyScanned, ext:core
